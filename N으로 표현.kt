@@ -1,4 +1,5 @@
-//2021-01-05
+// 2021-01-05
+// https://programmers.co.kr/learn/courses/30/lessons/42895
 
 class Solution {
     fun solution(N: Int, number: Int): Int {
