@@ -16,7 +16,7 @@ class Solution {
         
         for(c in case){
             
-            val numArr = LinkedList<Long>(numArr1)
+            val numArr = LinkedList<Long>(numArr1) // 다음같이 loop마다 초기화 해줘야함
             val opArr = LinkedList<Char>(opArr1)
             
             for(i in 0..2){
