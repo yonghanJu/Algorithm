@@ -1,0 +1,42 @@
+// 2022-01-11 거리두기 확인하기
+// https://programmers.co.kr/learn/courses/30/lessons/81302
+
+import java.util.*;
+
+class Solution {
+    
+    companion object{
+        lateinit var arr:Array<Array<String>>
+        var answer = ArrayList<Int>()
+        var finArr = intArrayOf(1,1,1,1,1)
+    }
+    
+    fun solution(places: Array<Array<String>>): IntArray {
+        arr= places
+        
+        places.forEachIndexed{ index, p->
+            for(i in 0..4){
+                for(j in 0..4){
+                    if(p[i][j]=='P') bfs(index,i,j,0,i,j)
+                }
+            }
+            if(finArr[index]==1) answer.add(1)
+        }
+        
+        return answer.toIntArray()
+    }
+    
+    fun bfs(place: Int, i:Int, j:Int, count:Int, oi:Int, oj:Int){
+        if((count!=0 && (oi==i && oj== j))||i<0 || i>4 || j<0 || j>4 || finArr[place]==0 || count>2 || arr[place][i][j]=='X') return
+        else if(count>0 && arr[place][i][j]=='P'){
+            finArr[place]=0
+            answer.add(0)
+            return
+        }else{
+            bfs(place,i-1,j,count+1, oi, oj)
+            bfs(place,i,j+1,count+1, oi, oj)
+            bfs(place,i,j-1,count+1, oi,oj)
+            bfs(place,i+1,j,count+1, oi, oj)
+        }
+    }
+}
