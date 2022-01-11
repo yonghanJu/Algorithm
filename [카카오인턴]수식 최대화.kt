@@ -19,6 +19,8 @@ class Solution {
             val numArr = LinkedList<Long>(numArr1) // 다음같이 loop마다 초기화 해줘야함
             val opArr = LinkedList<Char>(opArr1)
             
+            // LinkedList는 중간에 노드가 삭제되면 오른쪽 노드들이 당겨와 자리를 메워준다
+            // 또 중간에 노드를 추가 할 경우 노드들이 오른쪽으로 밀려난다
             for(i in 0..2){
                 var index=0
                 while(index < opArr.size){
