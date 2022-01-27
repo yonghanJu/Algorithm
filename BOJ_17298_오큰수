@@ -1,0 +1,38 @@
+// 2022-01-27
+// https://www.acmicpc.net/problem/17298
+
+import java.io.*
+import java.util.*
+
+fun main() = with(BufferedReader(InputStreamReader(System.`in`))) {
+    val sb = StringBuilder()
+    val stack = Stack<Int>()
+    val answer = mutableListOf<Int>()
+
+    val n = readLine().toInt()
+
+    val token = StringTokenizer(readLine())
+
+    val arr = arrayListOf<Int>()
+    for (i in 0 until n) arr.add(token.nextToken().toInt())
+
+    for(i in 0..arr.lastIndex){
+
+        while(!stack.empty() && stack.peek() <= arr[arr.lastIndex-i]){
+            stack.pop()
+        }
+        if(stack.empty()){
+            stack.add(arr[arr.lastIndex-i])
+            answer.add(-1)
+        }else {
+            answer.add(stack.peek())
+            stack.add(arr[arr.lastIndex-i])
+        }
+    }
+
+    // for(i in  0..answer.lastIndex) sb.append("${answer[answer.lastIndex-i]} ")
+    // 아래와 같이 String을 생성하지 않으면 많은 메모리를 절약할 수 있다.
+    for(i in  0..answer.lastIndex) sb.append(answer[answer.lastIndex-i]).append(' ')
+    println(sb)
+
+}
