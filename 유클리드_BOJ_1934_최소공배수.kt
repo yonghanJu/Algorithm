@@ -1,5 +1,6 @@
 // 2022-02-18
 // https://www.acmicpc.net/problem/1934
+// Bad 
 
 import java.io.*
 import java.util.*
