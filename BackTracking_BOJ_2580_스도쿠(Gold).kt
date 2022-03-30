@@ -1,4 +1,4 @@
-// 2022-03-29
+// 2022-03-30
 // https://www.acmicpc.net/problem/2580
 
 import java.io.*
@@ -23,11 +23,17 @@ fun main():Unit = with(BufferedReader(InputStreamReader(System.`in`))) {
        }
     }
 
-    dfs(0)
+    dfs(0,0)
 }
 
-fun dfs(size:Int):Boolean{
-    if(size == list.size){
+fun dfs(x:Int, y:Int):Boolean{
+    var curX = x
+    var curY = y
+    if(y==9){
+        curX++
+        curY=0
+    }
+    if(curX==9){
         val sb = StringBuilder()
         board.forEach { l->
             l.forEach { sb.append(it).append(' ') }
@@ -37,24 +43,21 @@ fun dfs(size:Int):Boolean{
         return true
     }
 
-    for(i in possibleNum[0][list[size].first].toList()){
-        for(j in possibleNum[1][list[size].second].toList()){
-            for(k in possibleNum[2][(list[size].first/3)*3+(list[size].second/3)].toList()) {
-                if(i==j && j==k){
-                    possibleNum[0][list[size].first].remove(i)
-                    possibleNum[1][list[size].second].remove(i)
-                    possibleNum[2][(list[size].first/3)*3+(list[size].second/3)].remove(i)
-                    board[list[size].first][list[size].second] = i
+    if(board[curX][curY] != 0) return dfs(curX,curY+1)
 
-                    if(dfs(size+1)) return true
-
-                    possibleNum[0][list[size].first].add(i)
-                    possibleNum[1][list[size].second].add(i)
-                    possibleNum[2][(list[size].first/3)*3+(list[size].second/3)].add(i)
-                }
-            }
-        }
+    for( n in 1..9){
+        if(check(curX,curY,n).not()) continue
+        board[curX][curY]=n
+        if(dfs(curX, curY+1)) return true
+        board[curX][curY]=0
     }
-
     return false
+}
+
+fun check(x:Int,y:Int,num:Int):Boolean{
+    for(i in 0..8) if(board[x][i]==num || board[i][y]==num) return false
+    for(i in (x/3)*3..(x/3)*3+2){
+        for(j in (y/3)*3..(y/3)*3+2) if(board[i][j]==num) return false
+    }
+    return true
 }
