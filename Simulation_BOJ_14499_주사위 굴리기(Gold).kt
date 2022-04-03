@@ -25,6 +25,7 @@ fun main():Unit = with(BufferedReader(InputStreamReader(System.`in`))) {
     imc = rc[4]
     board = List(r){readLine().split(' ').map{it.toInt()}.toIntArray()}
     im = readLine().split(' ').map{it.toInt()}
+    
     for(i in im){
         val nx = x+dx[i]
         val ny = y+dy[i]
