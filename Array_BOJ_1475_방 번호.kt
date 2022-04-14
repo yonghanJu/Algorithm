@@ -1,5 +1,5 @@
 // 2022-01-24
-// https://www.acmicpc.net/submit/1475/38050305
+// https://www.acmicpc.net/problem/1475
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
