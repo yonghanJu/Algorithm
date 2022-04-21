@@ -8,14 +8,20 @@ import kotlin.math.*
 class Solution{
 
     fun solution(n:Int):Int{
-        var num = BigInteger("1")
-        for(i in 1..n) num *= BigInteger(i.toString())
-        var answer = 0
-        while(num%BigInteger.TEN==BigInteger.ZERO){
-            num /= BigInteger.TEN
-            answer ++
+        var t = 0
+        var f  =0
+        for(i in 2 ..n){
+            var cur = i
+            while(cur%2==0){
+                t++
+                cur/=2
+            }
+            while(cur%5==0){
+                f++
+                cur/=5
+            }
         }
-        return answer
+        return minOf(t,f)
     }
 
 }
