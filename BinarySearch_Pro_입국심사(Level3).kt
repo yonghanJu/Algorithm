@@ -3,6 +3,7 @@ import java.util.*
 // 굳이 빈공간으로 가지 않아도 됨
 // 끝나는 시간이 중요
 // 이분 탐색 통나무 자르기와 비슷한 문제입니다
+// https://programmers.co.kr/learn/courses/30/lessons/43238
 class Solution {
     fun solution(n: Int, times: IntArray): Long {
         var answer: Long = 0
