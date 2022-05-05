@@ -1,0 +1,39 @@
+import java.util.*
+// https://programmers.co.kr/learn/courses/30/lessons/49189
+
+class Solution {
+    fun solution(n: Int, edge: Array<IntArray>): Int {
+        var answer = 0
+        var save = -1
+        val graph = Array(n+1){mutableListOf<Int>()}
+        edge.forEach{ 
+            graph[it[0]].add(it[1])
+            graph[it[1]].add(it[0])
+        }
+        
+        val distance = IntArray(n+1)
+        val isVisited = BooleanArray(n+1)
+        val q = ArrayDeque<Int>()
+        isVisited[1]=true
+        q.addFirst(1)
+        
+        while(q.isEmpty().not()){
+            val cur = q.removeLast()
+            if(save != distance[cur]){
+                save = distance[cur]
+                answer = 1
+            }else{
+                answer++
+            }
+            
+            for(i in graph[cur]){
+                if(isVisited[i]) continue
+                isVisited[i]=true
+                q.addFirst(i)
+                distance[i] = distance[cur]+1
+            }
+        }
+        
+        return answer
+    }
+}
