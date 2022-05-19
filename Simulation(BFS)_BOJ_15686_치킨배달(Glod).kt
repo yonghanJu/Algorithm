@@ -4,7 +4,6 @@
 import java.util.*
 
 class Solution {
-
     var an =Int.MAX_VALUE
     var M =0
     var N =0
