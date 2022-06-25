@@ -18,7 +18,7 @@ class Solution {
         outer@while(isChanged){
             isChanged = false
             for(i in 1..N){
-                for(j in i+1 until N){
+                for(j in 1 .. N){
                     for(k in 1..N){
                         if(table[i][k]!=Int.MAX_VALUE && table[k][j]!=Int.MAX_VALUE &&
                                 (table[i][j] > table[i][k]+table[k][j])){
