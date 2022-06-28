@@ -1,20 +1,22 @@
 // 2022-06-28
 // https://programmers.co.kr/learn/courses/30/lessons/87377 (교점에 별 만들기)
 
-// 주의 사항!
-// 자료형의 범위를 잘 생각해서 overflow가 일어나지 않도록 하자!
+// 주의 사항
+// 자료형의 범위를 살펴 overflow 방지!
 
 class Solution {
     fun solution(line: Array<IntArray>): Array<String> {
         var answerList = mutableSetOf<Pair<Int,Int>>()
         for(i in line.indices){
             for(j in i+1 .. line.lastIndex){
-                if(line[i][0]*line[j][1]==line[i][1]*line[j][0]) continue
-                val x = ((line[i][1].toLong()*line[j][2]-line[i][2]*line[j][1]).toDouble())/(line[i][0]*line[j][1]-line[i][1]*line[j][0].toLong()).toDouble()
-                if(x != x.toInt().toDouble()) continue
-                val y = ((line[i][2]*line[j][0].toLong()-line[i][0]*line[j][2]).toDouble())/(line[i][0]*line[j][1]-line[i][1]*line[j][0].toLong()).toDouble()
-                if(y != y.toInt().toDouble()) continue
-                answerList.add(Pair(y.toInt(), x.toInt()))
+                val (a,b,e) = line[i].map{it.toLong()}
+                val (c,d,f) = line[j].map{it.toLong()}
+                val adbc = a*d-b*c
+                val bfed = b*f-e*d
+                val ecaf = e*c-a*f
+                if(adbc == 0L) continue
+                if(bfed%adbc!=0L || ecaf%adbc!=0L) continue
+                answerList.add(Pair((ecaf/adbc).toInt(), (bfed/adbc).toInt()))
             }
         }
         var maxX = Int.MIN_VALUE
