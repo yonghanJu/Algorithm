@@ -17,7 +17,6 @@ class Solution {
         
         for(i in 1..n){
             isVisited = BooleanArray(n+1)
-            isVisited[i]=true
             dfs(i,i)
         }
         
@@ -29,6 +28,9 @@ class Solution {
     }
     
     fun dfs(now:Int, root:Int){
+        if(isVisited[now]) return
+        isVisited[now]=true
+        
         if(now != root){
             score[now][1]++
             score[root][0]++
@@ -36,7 +38,6 @@ class Solution {
         
         for(i in graph[now]){
             if(isVisited[i]) continue
-            isVisited[i]=true
             dfs(i,root)
         }
     }
