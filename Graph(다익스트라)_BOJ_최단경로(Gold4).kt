@@ -1,7 +1,7 @@
-import java.util.PriorityQueue
+import java.util.*
 
 // https://www.acmicpc.net/problem/1753
-// 2023-06-07
+// 2023-06-12
 
 fun main() {
     val s = Solution()
@@ -31,8 +31,10 @@ class Solution {
 
             // 새롭게 이동한 거리 정보를 이용해 startNode->newNode 까지의 거리를 재정의, pq에 넣기
             graph[toNode.index].forEach { (index, weight) ->
-                dist[index] = minOf(dist[index], dist[toNode.index] + weight)
-                pq.add(Node(index, dist[index]))
+                if(dist[index] > dist[toNode.index] + weight) {
+                    dist[index] = dist[toNode.index] + weight
+                    pq.add(Node(index, dist[index]))
+                }
             }
         }
 
