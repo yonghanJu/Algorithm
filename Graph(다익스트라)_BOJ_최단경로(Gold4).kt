@@ -13,7 +13,6 @@ fun main() {
 
 class Solution {
     fun solution(nodeSize: Int, startNode: Int, edges: List<List<Int>>): List<Int> {
-        val isVisited = BooleanArray(nodeSize + 1)
         val dist = IntArray(nodeSize + 1) { Int.MAX_VALUE }.apply { this[startNode] = 0 }
         val graph = List(1 + nodeSize) { mutableListOf<Node>() }
         edges.forEach { (index1, index2, weight) ->
@@ -26,8 +25,6 @@ class Solution {
         // startNode 에서 가장 가까운 노드 순으로 반복
         while (pq.isEmpty().not()) {
             val toNode = pq.poll()
-            if (isVisited[toNode.index]) continue // 방문 노드이면 건너뜀
-            isVisited[toNode.index] = true
 
             // 새롭게 이동한 거리 정보를 이용해 startNode->newNode 까지의 거리를 재정의, pq에 넣기
             graph[toNode.index].forEach { (index, weight) ->
