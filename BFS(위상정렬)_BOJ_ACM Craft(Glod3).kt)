@@ -1,0 +1,70 @@
+// https://www.acmicpc.net/problem/1005
+// 2023-06-27
+
+fun main() {
+    val s = Solution()
+    val l = mutableListOf<Int>()
+    repeat(readln().toInt()) {
+        val (n, k) = readln().split(' ').map { it.toInt() }
+        val delays = readln().split(' ').map { it.toInt() }
+        val edges = List(k) { readln().split(' ').map { it.toInt() } }
+        l.add(s.solution(delays, edges, readln().toInt()))
+    }
+    l.forEach {
+        println(it)
+    }
+}
+
+class Solution {
+    fun solution(delays: List<Int>, edges: List<List<Int>>, target: Int): Int {
+        val graph = List(delays.size + 1) { mutableListOf<Int>() }
+        val inverseGraph = List(delays.size + 1) { mutableListOf<Int>() }
+        val inverseCount = IntArray(delays.size + 1)
+        edges.forEach { (a, b) ->
+            graph[b].add(a)
+        }
+
+        val dq = ArrayDeque<Int>()
+        val isVisited = BooleanArray(delays.size + 1)
+        val delayedList = IntArray(delays.size + 1)
+
+        isVisited[target] = true
+        dq.addFirst(target)
+        while (dq.isNotEmpty()) {
+            val cur = dq.removeLast()
+
+            for (next in graph[cur]) {
+                if (isVisited[next]) continue
+                isVisited[next] = true
+                dq.addFirst(next)
+            }
+        }
+
+        edges.forEach { (a, b) ->
+            if (isVisited[a] && isVisited[b]) inverseGraph[a].add(b)
+        }
+
+        isVisited.map { false }
+        isVisited[target] = true
+        dq.addFirst(target)
+        delayedList[target] = delays[target - 1]
+
+        while (dq.isNotEmpty()) {
+            val cur = dq.removeLast()
+            for (left in graph[cur]) {
+                inverseCount[left]++
+            }
+            for (right in inverseGraph[cur]) {
+                delayedList[cur] = maxOf(delayedList[cur], delays[cur - 1] + delayedList[right])
+            }
+
+            outerFor@ for (left in graph[cur]) {
+                if (inverseCount[left] != inverseGraph[left].size) continue
+                isVisited[left] = true
+                dq.addFirst(left)
+            }
+        }
+
+        return delayedList.max()
+    }
+}
