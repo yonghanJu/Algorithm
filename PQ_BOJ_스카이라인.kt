@@ -2,7 +2,7 @@ import java.lang.StringBuilder
 import java.util.PriorityQueue
 
 // https://www.acmicpc.net/problem/1933
-// 2023-09-16
+// 2023-09-17
 
 fun main() {
     val mutableList = mutableListOf<Info>()
@@ -14,7 +14,6 @@ fun main() {
     mutableList.sortWith(compareBy<Info> { it.index }.thenBy { -it.height })
 
     var maxHeight = 0
-    var index = -1
     val pq = PriorityQueue<Info>(compareBy { -it.height })
     val map = mutableMapOf<Int, Int>() // <Height, Count>
     val sb = StringBuilder()
@@ -34,7 +33,6 @@ fun main() {
             map[pq.peek().height] = map[pq.peek().height]!! - 1
             pq.poll()
         }
-
 
         if ((pq.peek()?.height ?: 0) != maxHeight) {
             maxHeight = pq.peek()?.height ?: 0
