@@ -1,5 +1,6 @@
 class Solution {
     var answer = Int.MAX_VALUE
+    val answerMap = mutableMapOf<Set<Int>, Int>()
 
     fun solution(n: Int, weak: IntArray, dist: IntArray): Int {
         dfs(0, weak.toSet(), dist.sortedBy { -it }, n)
@@ -8,6 +9,9 @@ class Solution {
     }
 
     fun dfs(distIndex: Int, remainWeaks: Set<Int>, dist: List<Int>, n: Int) {
+        if ((answerMap[remainWeaks] ?: Int.MAX_VALUE) <= distIndex) return
+        answerMap[remainWeaks] = distIndex
+
         if (remainWeaks.isEmpty()) {
             answer = minOf(distIndex, answer)
             return
