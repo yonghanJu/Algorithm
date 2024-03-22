@@ -6,7 +6,7 @@ class Solution {
         
         val dp = List(storey.toString().length) { IntArray(2) }
         dp[0][0] = storey % 10
-        dp[0][1] = 10 - storey % 10 // [1] 을 선택하면 0 출발 or 9출발 하겠다 이거임
+        dp[0][1] = 10 - storey % 10
         var s = storey / 10
         
         for(i in 1..dp.lastIndex) {
